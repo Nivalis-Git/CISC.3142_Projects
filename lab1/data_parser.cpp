@@ -19,8 +19,11 @@
 #include <sstream>
 #include <vector>
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
+
+vector<int> pairing_oneToMany(vector<string> vNames, vector<string> vValues);
 
 int main() {
 
@@ -72,11 +75,47 @@ int main() {
       cout << "Unable to open file";
   }
   
-  cout << "SKU" << "\t" << "Brand" << "\t" << "Year" << endl;
+  // output values to text file
+  ofstream out_stream("data_analysis.txt");
   
+  out_stream << "SKU" << "\t" << "Brand" << "\t" << "Year" << endl;
   for (int j = 0; j < vSKU.size(); j++) {
-    cout << vSKU[j] << "\t" << vBrand[j] << "\t" << vYear[j] << endl;
+    out_stream << vSKU[j] << "\t" << vBrand[j] << "\t" << vYear[j] << endl;
   }
   
+  // 
+  
+  out_stream.close();
   cout << endl;
+}
+
+/* owner
+  owner pairs a single string with many floating point values.
+*/
+struct owner {
+  string name;
+  vector<float> values;
+}
+
+
+
+/* pairing_oneToMany
+  Takes two vectors of type string and returns a vector of type owner.
+  Fills the owner vector by pairing unique values from the names vector with associated values from the values vector, the pairings are stored in the owner structure.
+*/
+vector<int> pairing_oneToMany(vector<string> vNames, vector<string> vValues) {
+  vectors<string> uniqueNames;
+  vector<int> vOwners;
+  if vNames.size() == vMany.size() {
+    return vOwners;
+  }
+  
+  for (int i = 0; i < vOne.size(); i++) {
+    if (find(uniqueNames.begin(), uniqueNames.end(), vOne[i]) == uniqueNames.end()) {
+      
+    } else {
+    }
+  }
+  
+  return vOwners;
 }
