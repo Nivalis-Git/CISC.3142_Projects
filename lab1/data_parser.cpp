@@ -23,8 +23,6 @@
 
 using namespace std;
 
-vector<int> pairing_oneToMany(vector<string> vNames, vector<string> vValues);
-
 int main() {
 
   // define variables
@@ -82,40 +80,20 @@ int main() {
   for (int j = 0; j < vSKU.size(); j++) {
     out_stream << vSKU[j] << "\t" << vBrand[j] << "\t" << vYear[j] << endl;
   }
+  out_stream << endl;
   
-  // 
-  
-  out_stream.close();
-  cout << endl;
-}
-
-/* owner
-  owner pairs a single string with many floating point values.
-*/
-struct owner {
-  string name;
-  vector<float> values;
-}
-
-
-
-/* pairing_oneToMany
-  Takes two vectors of type string and returns a vector of type owner.
-  Fills the owner vector by pairing unique values from the names vector with associated values from the values vector, the pairings are stored in the owner structure.
-*/
-vector<int> pairing_oneToMany(vector<string> vNames, vector<string> vValues) {
-  vectors<string> uniqueNames;
-  vector<int> vOwners;
-  if vNames.size() == vMany.size() {
-    return vOwners;
-  }
-  
-  for (int i = 0; i < vOne.size(); i++) {
-    if (find(uniqueNames.begin(), uniqueNames.end(), vOne[i]) == uniqueNames.end()) {
-      
+  // Calculating the average price per brand and per category
+  vector<string> uniqueNames; // tracks the unique owner values
+  vector< vector<float> > prices;
+  for (int i = 0; i < vBrand.size(); i++) {
+    vector<string>::iterator it = find(uniqueNames.begin(), uniqueNames.end(), vBrand[i]);
+    if (it == uniqueNames.end()) {
+      uniqueNames.push_back(vBrand[i]);
+      prices.push_back( vector<float>(vPrice[i]) );
     } else {
+      prices[it-uniqueNames.begin()].push_back(vPrice[i]);
     }
   }
   
-  return vOwners;
+  out_stream.close();
 }
