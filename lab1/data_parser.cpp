@@ -83,16 +83,28 @@ int main() {
   out_stream << endl;
   
   // Calculating the average price per brand and per category
-  vector<string> uniqueNames; // tracks the unique owner values
+  vector<string> owners; // tracks the unique owner values
   vector< vector<float> > prices;
   for (int i = 0; i < vBrand.size(); i++) {
-    vector<string>::iterator it = find(uniqueNames.begin(), uniqueNames.end(), vBrand[i]);
-    if (it == uniqueNames.end()) {
-      uniqueNames.push_back(vBrand[i]);
-      prices.push_back( vector<float>(vPrice[i]) );
+    vector<string>::iterator it = find(owners.begin(), owners.end(), vBrand[i]);
+    if (it == owners.end()) {
+      owners.push_back(vBrand[i]);
+      prices.push_back(vector<float>());
+      prices[prices.size()-1].push_back(vPrice[i]);
     } else {
-      prices[it-uniqueNames.begin()].push_back(vPrice[i]);
+      prices[it-owners.begin()].push_back(vPrice[i]);
     }
+  }
+  
+  for (int i = 0; i < owners.size(); i++) {
+    cout << owners[i] << endl;
+  }
+  cout << endl;
+  for (int i = 0; i < prices.size(); i++) {
+    for (int j = 0; j < prices[i].size(); j++) {
+      cout << prices[i][j] << " ";
+    }
+    cout << endl;
   }
   
   out_stream.close();
