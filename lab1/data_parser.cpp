@@ -95,11 +95,11 @@ int main() {
   vector<string>::iterator it;
   for (int i = 0; i < vBrand.size(); i++) {
     it = find(owners.begin(), owners.end(), vBrand[i]);
-    if (it == owners.end()) {
+    if (it == owners.end()) {            // if vBrand[i] does not exist then push the new values
       owners.push_back(vBrand[i]);
       sumOfPrices.push_back(vPrice[i]);
       countOfPrices.push_back(1);
-    } else {
+    } else {                             // else update the correct existing values
       sumOfPrices[it-owners.begin()] += vPrice[i];
       countOfPrices[it-owners.begin()]++;
     }
