@@ -15,10 +15,11 @@
 */
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
-#include <fstream>
+#include <hash_map>
 #include <algorithm>
 
 using namespace std;
@@ -87,29 +88,31 @@ int main() {
   out_stream << endl << endl;
   
   // Calculating the average price per brand and per category
-  vector<string> owners;      // tracks the unique owner values
+  __gnu_cxx::hash_map<int, string> owners;  // tracks the unique owner values
   vector<float> sumOfPrices;  // tracks the sum of prices associated with an owner
   vector<int> countOfPrices;  // tracks the number of prices associated with an owner
   // the above vectors match their elements with the same indices, i.e. a[i]<-->b[i]<-->c[i]
   
-  vector<string>::iterator it;
+  int idx_key = 0;
   for (int i = 0; i < vBrand.size(); i++) {
-    it = find(owners.begin(), owners.end(), vBrand[i]);
-    if (it == owners.end()) {            // if vBrand[i] does not exist then push the new values
-      owners.push_back(vBrand[i]);
+    pair<__gnu_cxx::hash_map<int,string>::iterator, bool> pr = owners.insert(make_pair(idx_key, vBrand[i]));
+    if (pr.second) {
+      idx_key++;
       sumOfPrices.push_back(vPrice[i]);
       countOfPrices.push_back(1);
-    } else {                             // else update the correct existing values
-      sumOfPrices[it-owners.begin()] += vPrice[i];
-      countOfPrices[it-owners.begin()]++;
+    } else {  // else update the correct existing values
+      sumOfPrices[(pr.first)->first] += vPrice[i];
+      countOfPrices[(pr.first)->first]++;
     }
   }
   
   out_stream << "Brand" << "\t" << "Average_Price" << endl;
   char* average;  // buffer for correctly formatted average
+  __gnu_cxx::hash_map<int, int>::const_iterator owners_it;  // hash_map iterator, used to find element from key
   for (int i = 0; i < owners.size(); i++) {
     sprintf(average, "%8.2f", sumOfPrices[i]/countOfPrices[i]);
-    out_stream << owners[i] << "\t" << average << endl;
+    owners_it = owners.find(i)
+    out_stream << owners_it->second << "\t" << average << endl;
   }
   
   out_stream.close();

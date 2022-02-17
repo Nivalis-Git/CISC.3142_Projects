@@ -11,5 +11,3 @@ SKU	Brand	Year
 
 
 Brand	Average_Price
-ABC	    1.00
-XYZ	    2.00
