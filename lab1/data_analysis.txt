@@ -11,12 +11,12 @@ SKU	Brand	Year
 
 
 Brand	Average_Price
-ABC	9
-ABC	9
-ABC	9
-ABC	9
-ABC	9
-ABC	9
-XYZ	9
-XYZ	9
-XYZ	9
+ABC	0.5
+ABC	0.5
+ABC	0.5
+ABC	1.5
+ABC	1.5
+ABC	1.5
+XYZ	1
+XYZ	2
+XYZ	3

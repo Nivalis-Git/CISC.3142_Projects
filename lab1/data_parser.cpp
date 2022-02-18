@@ -19,12 +19,11 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <hash_set>
 #include <hash_map>
-#include <algorithm>
 
 using namespace std;
-
-void pairing_oneToMany(vector<string>& vOne, vector<string>& vMany, vector<stringstream>& vOwners);
+using namespace __gnu_cxx;
 
 int main() {
 
@@ -88,36 +87,38 @@ int main() {
   out_stream << endl << endl;
   
   // Calculating the average price per brand and per category
-  __gnu_cxx::hash_map<int, string> owners;  // tracks the unique owner values
+  hash_map<int, string> owners;  // tracks the unique owner values
   vector<float> sumOfPrices;  // tracks the sum of prices associated with an owner
   vector<int> countOfPrices;  // tracks the number of prices associated with an owner
   // the above vectors match their elements with the same indices, i.e. a[i]<-->b[i]<-->c[i]
   
   int idx_key = 0;
+  hash_set<string> uniqueVals;  // used to determine whether a value is unique when inserting into the map
   for (int i = 0; i < vBrand.size(); i++) {
-    pair<int, string> pr(idx_key, vBrand[i]);
-    pair<__gnu_cxx::hash_map<int,string>::iterator, bool> unique = owners.insert(pr);
-    if (unique.second) {
-      cout << unique.second << endl;
-      idx_key++;
+    if (uniqueVals.insert(vBrand[i]).second)
+    pair<hash_set<string>::iterator, bool> uniqueness = owners.insert(vBrand[i]);
+    
+    if (uniqueness.second) {
+      cout << uniqueness.second << " insert success" << endl;
       sumOfPrices.push_back(vPrice[i]);
       countOfPrices.push_back(1);
     } else {  // else update the correct existing values
-      sumOfPrices[(unique.first)->first] += vPrice[i];
-      countOfPrices[(unique.first)->first]++;
+      int idx = owners.find(vBrand[i]) - owners.begin();
+      sumOfPrices[idx] += vPrice[i];
+      countOfPrices[idx]++;
     }
   }
   
-  out_stream << "Brand" << "\t" << "Average_Price" << endl;
-  __gnu_cxx::hash_map<int, string>::const_iterator owners_it;  // hash_map iterator, used to find element from key
-  __gnu_cxx::hash_map<int, string>::size_type owners_size = owners.size();
+  /*out_stream << "Brand" << "\t" << "Average_Price" << endl;
+  hash_map<int, string>::const_iterator owners_it;  // hash_map iterator, used to find element from key
+  hash_map<int, string>::size_type owners_size = owners.size();
   int size = owners_size;
   for (int i = 0; i < size; i++) {
     //char* average;  // buffer for correctly formatted average
     //sprintf(average, "%8.2f", sumOfPrices[i]/countOfPrices[i]);
     owners_it = owners.find(i);
-    out_stream << owners_it -> second << "\t" << idx_key/*average*/ << endl;
-  }
+    out_stream << owners_it -> second << "\t" << sumOfPrices[i]/countOfPrices[i] << endl;
+  }*/
   
   out_stream.close();
   
