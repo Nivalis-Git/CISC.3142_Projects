@@ -95,24 +95,28 @@ int main() {
   
   int idx_key = 0;
   for (int i = 0; i < vBrand.size(); i++) {
-    pair<__gnu_cxx::hash_map<int,string>::iterator, bool> pr = owners.insert(make_pair(idx_key, vBrand[i]));
-    if (pr.second) {
+    pair<int, string> pr(idx_key, vBrand[i]);
+    pair<__gnu_cxx::hash_map<int,string>::iterator, bool> unique = owners.insert(pr);
+    if (unique.second) {
+      cout << unique.second << endl;
       idx_key++;
       sumOfPrices.push_back(vPrice[i]);
       countOfPrices.push_back(1);
     } else {  // else update the correct existing values
-      sumOfPrices[(pr.first)->first] += vPrice[i];
-      countOfPrices[(pr.first)->first]++;
+      sumOfPrices[(unique.first)->first] += vPrice[i];
+      countOfPrices[(unique.first)->first]++;
     }
   }
   
   out_stream << "Brand" << "\t" << "Average_Price" << endl;
-  char* average;  // buffer for correctly formatted average
-  __gnu_cxx::hash_map<int, int>::const_iterator owners_it;  // hash_map iterator, used to find element from key
-  for (int i = 0; i < owners.size(); i++) {
-    sprintf(average, "%8.2f", sumOfPrices[i]/countOfPrices[i]);
-    owners_it = owners.find(i)
-    out_stream << owners_it->second << "\t" << average << endl;
+  __gnu_cxx::hash_map<int, string>::const_iterator owners_it;  // hash_map iterator, used to find element from key
+  __gnu_cxx::hash_map<int, string>::size_type owners_size = owners.size();
+  int size = owners_size;
+  for (int i = 0; i < size; i++) {
+    //char* average;  // buffer for correctly formatted average
+    //sprintf(average, "%8.2f", sumOfPrices[i]/countOfPrices[i]);
+    owners_it = owners.find(i);
+    out_stream << owners_it -> second << "\t" << idx_key/*average*/ << endl;
   }
   
   out_stream.close();
