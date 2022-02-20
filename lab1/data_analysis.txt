@@ -19,3 +19,9 @@ Category	Average_Price
 A	           1.60
 B	           1.00
 C	           1.00
+
+
+List of SKUs by year
+2000 (2): 111 211 
+2010 (2): 112 212 
+2020 (5): 113 213 321 322 323 

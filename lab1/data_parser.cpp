@@ -21,11 +21,15 @@
 #include <vector>
 #include <map>
 #include <cstdlib>
+#include <set>
 
 using namespace std;
 
-void fill_averageMap(vector<string>& one, vector<float>& many, map< string, pair<float,int> >& owners);
-void print_averageMap(map< string, pair<float,int> >& owners, ofstream& out_stream);
+void fill_averageMap(vector<string>& names, vector<float>& prices, map< string, pair<float,int> >& averageMap);
+void fill_dataMap(vector<string>& names, vector<string>& data, map< string, set<string> >& dataMap);
+
+void print_averageMap(map< string, pair<float,int> >& averageMap, ofstream& out_stream);
+void print_dataMap(map< string, set<string> >& dataMap, ofstream& out_stream);
 
 int main()
 {
@@ -33,10 +37,10 @@ int main()
   
   // define variables
   string sku, brand, category, year, price;
-  vector<int> vSKU;
+  vector<string> vSKU;
   vector<string> vBrand;
   vector<string> vCategory;
-  vector<int> vYear;
+  vector<string> vYear;
   vector<float> vPrice;
   
   // opening the file
@@ -55,7 +59,7 @@ int main()
       
       getline(in_stream, sku, ',');
       stringstream ssku(sku);
-      int iSKU = 0;
+      string iSKU;
       ssku >> iSKU;
       vSKU.push_back(iSKU);
       
@@ -67,7 +71,7 @@ int main()
       
       getline(in_stream, year, ',');
       stringstream syear(year);
-      int iYear;
+      string iYear;
       syear >> iYear;
       vYear.push_back(iYear);
       
@@ -95,7 +99,7 @@ int main()
   out_stream << endl << endl;
   
   
-  // II. Printing the average price per brand and per category
+  // II. Feature 1: Printing the average price per brand and per category
   
   // organize the requisite data
   map< string, pair<float, int> > averageMap;  // pairs unique string values with a pair conisisting of the sum of prices associated with that string and the number of such prices
@@ -112,28 +116,39 @@ int main()
   out_stream << "Category" << "\t" << "Average_Price" << endl;
   print_averageMap(averageMap, out_stream);
   
-  out_stream.close();
+  out_stream << endl << endl;
   
-  cout << endl;
+  
+  // III. Feature 2: Printing the years and their associated SKUs
+  
+  map< string, set<string> > dataMap;
+  fill_dataMap(vYear, vSKU, dataMap);
+  out_stream << "List of SKUs by year" << endl;
+  print_dataMap(dataMap, out_stream);
+  
+  
+  // IV. End of program
+  
+  out_stream.close();
 }
 
 
 
 
-/* printAverages
+/* print_averageMap
 */
-void print_averageMap(map< string, pair<float,int> >& owners, ofstream& out_stream)
+void print_averageMap(map< string, pair<float,int> >& averageMap, ofstream& out_stream)
 {
-  for (map< string, pair<float,int> >::iterator it = owners.begin(); it != owners.end(); it++)
+  for (map< string, pair<float,int> >::iterator it = averageMap.begin(); it != averageMap.end(); it++)
   {
-    string owner = it -> first;
+    string name = it -> first;
     pair<float, int> val = it -> second;
     float average = val.first/val.second;
     
     // code to allow for automatic malloc in formatting character buffer
-    size_t size = snprintf(NULL, 0, "%s\t%15.2f", owner.c_str(), average);
+    size_t size = snprintf(NULL, 0, "%s\t%15.2f", name.c_str(), average);
     char *buffer = (char*)malloc(size+1);
-    sprintf(buffer, "%s\t%15.2f", owner.c_str(), average);
+    sprintf(buffer, "%s\t%15.2f", name.c_str(), average);
     
     out_stream << buffer << endl;
   }
@@ -144,25 +159,63 @@ void print_averageMap(map< string, pair<float,int> >& owners, ofstream& out_stre
 
 
 
+void print_dataMap(map< string, set<string> >& dataMap, ofstream& out_stream)
+{
+  for (map< string, set<string> >::iterator it = dataMap.begin(); it != dataMap.end(); it++)
+  {
+    out_stream << it->first << " (" << it->second.size() << "): ";
+    for (set<string>::iterator set_it = it->second.begin(); set_it != it->second.end(); set_it++)
+    {
+      out_stream << *set_it << " ";
+    }
+    out_stream << endl;
+  }
+}
+
+
+
+
 /* fill_averageMap
   Fills a map (owners) using two vectors labeled one and many.
   The map is filled by unique values from <one>, they act as the keys while an index is stored as the value.
   The map values act as matching indices that allow an owner to be associated with the data in the vector.
 */
-void fill_averageMap(vector<string>& name, vector<float>& prices, map< string, pair<float,int> >& averageMap)
+void fill_averageMap(vector<string>& names, vector<float>& prices, map< string, pair<float,int> >& averageMap)
 {
-  if (name.size() == prices.size())
+  if (names.size() == prices.size())
   {
     averageMap.clear();
     
-    for (int i = 0; i < name.size(); i++)
+    for (int i = 0; i < names.size(); i++)
     {
       pair<float, int> val(prices[i], 1);
-      if ( !averageMap.insert(make_pair(name[i], val)).second )
+      if ( !averageMap.insert(make_pair(names[i], val)).second )
       {
-        averageMap.find(name[i])->second.first += prices[i];
-        averageMap.find(name[i])->second.second++;
+        averageMap.find(names[i])->second.first += prices[i];
+        averageMap.find(names[i])->second.second++;
       }
+    }
+  }
+  
+  return;
+}
+
+
+
+
+void fill_dataMap(vector<string>& names, vector<string>& data, map< string, set<string> >& dataMap)
+{
+  if (names.size() == data.size())
+  {
+    dataMap.clear();
+    
+    for (int i = 0; i < names.size(); i++)
+    {
+      pair< string, set<string> > pr;
+      pr.first = names[i];
+      
+      dataMap.insert(pr).second;
+      dataMap.find(names[i])->second.insert(data[i]);
     }
   }
   
