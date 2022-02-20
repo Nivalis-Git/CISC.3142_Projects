@@ -24,8 +24,8 @@
 
 using namespace std;
 
-void fill_OneToMany(vector<string>& one, vector<float>& many, map<string,int>& owners, vector< pair<float,int> >& val);
-void printAverages(map<string,int>& owners, vector< pair<float,int> >& val, ofstream& out_stream);
+void fill_averageMap(vector<string>& one, vector<float>& many, map< string, pair<float,int> >& owners);
+void print_averageMap(map< string, pair<float,int> >& owners, ofstream& out_stream);
 
 int main()
 {
@@ -98,20 +98,19 @@ int main()
   // II. Printing the average price per brand and per category
   
   // organize the requisite data
-  map<string, int> owners;  // pairs unique string values with an index, allowing associated data to be accessed through matching indices, i.e. <owner,idx> ---> SumAndCount[idx]
-  vector< pair<float, int> > prices_SumAndCount; // records the sum of prices and the number of prices associated with a particular owner value
-  fill_OneToMany(vBrand, vPrice, owners, prices_SumAndCount);
+  map< string, pair<float, int> > averageMap;  // pairs unique string values with a pair conisisting of the sum of prices associated with that string and the number of such prices
   
   // print the average price per brand
+  fill_averageMap(vBrand, vPrice, averageMap);
   out_stream << "Brand" << "\t" << "Average_Price" << endl;
-  printAverages(owners, prices_SumAndCount, out_stream);
+  print_averageMap(averageMap, out_stream);
   
   out_stream << endl << endl;
   
   // print the average price per category
-  fill_OneToMany(vCategory, vPrice, owners, prices_SumAndCount);
+  fill_averageMap(vCategory, vPrice, averageMap);
   out_stream << "Category" << "\t" << "Average_Price" << endl;
-  printAverages(owners, prices_SumAndCount, out_stream);
+  print_averageMap(averageMap, out_stream);
   
   out_stream.close();
   
@@ -123,13 +122,13 @@ int main()
 
 /* printAverages
 */
-void printAverages(map<string,int>& owners, vector< pair<float,int> >& val, ofstream& out_stream)
+void print_averageMap(map< string, pair<float,int> >& owners, ofstream& out_stream)
 {
-  for (map<string,int>::iterator it = owners.begin(); it != owners.end(); it++)
+  for (map< string, pair<float,int> >::iterator it = owners.begin(); it != owners.end(); it++)
   {
     string owner = it -> first;
-    int idx = it -> second;
-    float average = val[idx].first/val[idx].second;
+    pair<float, int> val = it -> second;
+    float average = val.first/val.second;
     
     // code to allow for automatic malloc in formatting character buffer
     size_t size = snprintf(NULL, 0, "%s\t%15.2f", owner.c_str(), average);
@@ -145,27 +144,25 @@ void printAverages(map<string,int>& owners, vector< pair<float,int> >& val, ofst
 
 
 
-/* fill_OneToMany
-  Fills a map (owners) and a vector (val) using two vectors labeled one and many.
+/* fill_averageMap
+  Fills a map (owners) using two vectors labeled one and many.
   The map is filled by unique values from <one>, they act as the keys while an index is stored as the value.
   The map values act as matching indices that allow an owner to be associated with the data in the vector.
-  The vector is filled by pairs made from <val>, first the sum of values associated with a particular owner value and second the number of such values.
 */
-void fill_OneToMany(vector<string>& one, vector<float>& many, map<string,int>& owners, vector< pair<float,int> >& val)
+void fill_averageMap(vector<string>& name, vector<float>& prices, map< string, pair<float,int> >& averageMap)
 {
-  owners.clear();
-  val.clear();
-  
-  for (int i = 0, idx = 0; i < one.size(); i++)
+  if (name.size() == prices.size())
   {
-    if ( owners.insert(make_pair(one[i], idx)).second )  // if insertion is successful then create new vector pair
+    averageMap.clear();
+    
+    for (int i = 0; i < name.size(); i++)
     {
-      idx++;
-      val.push_back( make_pair(many[i], 1) );
-    } else {                                             // else update the existing associated pair
-      int idx_val = owners.find(one[i]) -> second;  // the matching index for the associated vector pair
-      val[idx_val].first += many[i];
-      val[idx_val].second++;
+      pair<float, int> val(prices[i], 1);
+      if ( !averageMap.insert(make_pair(name[i], val)).second )
+      {
+        averageMap.find(name[i])->second.first += prices[i];
+        averageMap.find(name[i])->second.second++;
+      }
     }
   }
   
