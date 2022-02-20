@@ -10,13 +10,3 @@ SKU	Brand	Year
 323	XYZ	2020
 
 
-Brand	Average_Price
-ABC	0.5
-ABC	0.5
-ABC	0.5
-ABC	1.5
-ABC	1.5
-ABC	1.5
-XYZ	1
-XYZ	2
-XYZ	3

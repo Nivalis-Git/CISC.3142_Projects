@@ -87,25 +87,23 @@ int main() {
   out_stream << endl << endl;
   
   // Calculating the average price per brand and per category
-  hash_map<int, string> owners;  // tracks the unique owner values
-  vector<float> sumOfPrices;  // tracks the sum of prices associated with an owner
-  vector<int> countOfPrices;  // tracks the number of prices associated with an owner
-  // the above vectors match their elements with the same indices, i.e. a[i]<-->b[i]<-->c[i]
+  hash_set<string> owners;  // records the unique owner values
+  vector<float> sumOfPrices;  // records the sum of prices associated with an owner
+  vector<int> countOfPrices;  // records the number of prices associated with an owner
+  hash_map<string, int> owners_indices;  // pairs the owner strings with a specific index, allowing the above vectors to be accessed for the associated data, i.e. owner.idx --> sum[idx], count[idx]
   
-  int idx_key = 0;
-  hash_set<string> uniqueVals;  // used to determine whether a value is unique when inserting into the map
+  int idx = 0; 
   for (int i = 0; i < vBrand.size(); i++) {
-    if (uniqueVals.insert(vBrand[i]).second)
-    pair<hash_set<string>::iterator, bool> uniqueness = owners.insert(vBrand[i]);
-    
-    if (uniqueness.second) {
-      cout << uniqueness.second << " insert success" << endl;
+    if (owners.insert(vBrand[i]).second) {
+      owners_indices.insert( make_pair(vBrand[i],idx) );
+      idx++;
+      cout << "both inserts are successful" << endl;
       sumOfPrices.push_back(vPrice[i]);
       countOfPrices.push_back(1);
-    } else {  // else update the correct existing values
-      int idx = owners.find(vBrand[i]) - owners.begin();
-      sumOfPrices[idx] += vPrice[i];
-      countOfPrices[idx]++;
+    } else {  // else update the existing associated values
+      hash_map<string, int>::iterator it = owners_indices.find(vBrand[i]);
+      sumOfPrices[it -> second] += vPrice[i];
+      countOfPrices[it -> second]++;
     }
   }
   
