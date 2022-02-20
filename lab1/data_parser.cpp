@@ -24,7 +24,11 @@
 
 using namespace std;
 
-int main() {
+void fill_OneToMany(vector<string>& one, vector<float>& many, map<string,int>& owners, vector< pair<float,int> >& val);
+void printAverages(map<string,int>& owners, vector< pair<float,int> >& val, ofstream& out_stream);
+
+int main()
+{
   // I. Printing SKU, Brand, and Year for each record
   
   // define variables
@@ -40,11 +44,13 @@ int main() {
   in_stream.open("data.csv");
   
   // if the file is open, execute
-  if (!in_stream.fail()) {
+  if (!in_stream.fail())
+  {
     string header;
     getline(in_stream, header);
 
-    while (in_stream.peek() != EOF) {  // while eof is NOT reached (avoids reading past eof)
+    while (in_stream.peek() != EOF)  // while eof is NOT reached (avoids reading past eof)
+    {
       // fields: sku, brand, category, year, price
       
       getline(in_stream, sku, ',');
@@ -81,7 +87,8 @@ int main() {
   ofstream out_stream("data_analysis.txt");
   
   out_stream << "SKU" << "\t" << "Brand" << "\t" << "Year" << endl;
-  for (int j = 0; j < vSKU.size(); j++) {
+  for (int j = 0; j < vSKU.size(); j++)
+  {
     out_stream << vSKU[j] << "\t" << vBrand[j] << "\t" << vYear[j] << endl;
   }
   
@@ -90,41 +97,77 @@ int main() {
   
   // II. Printing the average price per brand and per category
   
-  // one map and two vectors to store the requisite data
-  map<string, int> owners;  // pairs unique string values with an index, allowing associated data to be accessed through matching indices, i.e. <owner,idx> ---> sum[idx], count[idx]
-  vector<float> sumOfPrices;  // records the sum of prices associated with an owner
-  vector<int> countOfPrices;  // records the number of prices associated with an owner
+  // organize the requisite data
+  map<string, int> owners;  // pairs unique string values with an index, allowing associated data to be accessed through matching indices, i.e. <owner,idx> ---> SumAndCount[idx]
+  vector< pair<float, int> > prices_SumAndCount; // records the sum of prices and the number of prices associated with a particular owner value
+  fill_OneToMany(vBrand, vPrice, owners, prices_SumAndCount);
   
-  // fill the map with unique string keys and update the associated vectors
-  for (int i = 0, idx = 0; i < vBrand.size(); i++) {
-    if ( owners.insert(make_pair(vBrand[i], idx)).second ) {  // if insertion is successful then create new vector entries
-      idx++;
-      sumOfPrices.push_back(vPrice[i]);
-      countOfPrices.push_back(1);
-    } else {  // else update the existing associated entries
-      int val = owners.find(vBrand[i]) -> second;
-      sumOfPrices[val] += vPrice[i];
-      countOfPrices[val]++;
-    }
-  }
-  
-  // print the average price per
+  // print the average price per brand
   out_stream << "Brand" << "\t" << "Average_Price" << endl;
-  map<string,int>::iterator owners_it = owners.begin();  // iterator for map traversal
-  for (owners_it; owners_it != owners.end(); owners_it++) {
-    string owner = owners_it -> first;
-    int idx = owners_it -> second;
-    float average = sumOfPrices[idx]/countOfPrices[idx];
-    
-    // code to allow for automatic malloc in formatting character buffer
-    size_t size = snprintf(NULL, 0, "%s\t%8.2f", owner.c_str(), average);
-    char *buffer = (char*)malloc(size+1);
-    sprintf(buffer, "%s\t%8.2f", owner.c_str(), average);
-    
-    out_stream << buffer << endl;
-  }
+  printAverages(owners, prices_SumAndCount, out_stream);
+  
+  out_stream << endl << endl;
+  
+  // print the average price per category
+  fill_OneToMany(vCategory, vPrice, owners, prices_SumAndCount);
+  out_stream << "Category" << "\t" << "Average_Price" << endl;
+  printAverages(owners, prices_SumAndCount, out_stream);
   
   out_stream.close();
   
   cout << endl;
+}
+
+
+
+
+/* printAverages
+*/
+void printAverages(map<string,int>& owners, vector< pair<float,int> >& val, ofstream& out_stream)
+{
+  for (map<string,int>::iterator it = owners.begin(); it != owners.end(); it++)
+  {
+    string owner = it -> first;
+    int idx = it -> second;
+    float average = val[idx].first/val[idx].second;
+    
+    // code to allow for automatic malloc in formatting character buffer
+    size_t size = snprintf(NULL, 0, "%s\t%15.2f", owner.c_str(), average);
+    char *buffer = (char*)malloc(size+1);
+    sprintf(buffer, "%s\t%15.2f", owner.c_str(), average);
+    
+    out_stream << buffer << endl;
+  }
+  
+  return;
+}
+
+
+
+
+/* fill_OneToMany
+  Fills a map (owners) and a vector (val) using two vectors labeled one and many.
+  The map is filled by unique values from <one>, they act as the keys while an index is stored as the value.
+  The map values act as matching indices that allow an owner to be associated with the data in the vector.
+  The vector is filled by pairs made from <val>, first the sum of values associated with a particular owner value and second the number of such values.
+*/
+void fill_OneToMany(vector<string>& one, vector<float>& many, map<string,int>& owners, vector< pair<float,int> >& val)
+{
+  owners.clear();
+  val.clear();
+  
+  for (int i = 0, idx = 0; i < one.size(); i++)
+  {
+    if ( owners.insert(make_pair(one[i], idx)).second )  // if insertion is successful then create new vector pair
+    {
+      idx++;
+      val.push_back( make_pair(many[i], 1) );
+    } else {                                             // else update the existing associated pair
+      int idx_val = owners.find(one[i]) -> second;  // the matching index for the associated vector pair
+      val[idx_val].first += many[i];
+      val[idx_val].second++;
+    }
+  }
+  
+  return;
 }
