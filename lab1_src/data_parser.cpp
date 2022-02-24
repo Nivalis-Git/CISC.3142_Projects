@@ -18,6 +18,11 @@
 
 int main()
 {
+  // Requisite printf statement - Class 4, 23-Feb-2022
+  string name("Nicholas");
+  float num = 5.569483303;
+  printf("Greetings. My name--%s.\n%.2f\n", name.c_str(), num);
+
   // I. Printing SKU, Brand, and Year for each record
   
   // define variables
