@@ -206,7 +206,7 @@ string infixToPrefix(string infix)
 // Driver code
 int main()
 {
-	string s = ("5+(5*5)+4^(7/2)/2+7.77");
+	string s = ("5+(5*5)+4^(7/2)/2.4+7.77");
 	string prefix = infixToPrefix(s);
 	cout << prefix << std::endl;
 	printf("%f\n", evaluatePrefix(prefix));

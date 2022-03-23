@@ -11,13 +11,16 @@ int main()
 
 // I. 
 	printf("Enter: ");
-	string expression;
-	cin >> expression;
+	string expr;
+	cin >> expr;
 	printf("\n");
 	
 	Calculator calc;
-
-
+	
+	calc.evaluate(expr);
+	printf("Result: %.2f\n", calc.eval);
+	
+	
 // . End of program
 	return 0;
 }

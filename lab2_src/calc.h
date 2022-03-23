@@ -19,10 +19,10 @@ enum class Operation { add, sub, mlt, div, exp, sqrt, convert_toFraction};
 struct Calculator
 {
 	Operation op;
-	double eval {};
+	double eval;
 	
 	// evaluate prefix expression
-	void evaluatePrefix(std::string expr)
+	void evaluate(std::string expr)
 	{
 		eval = evaluate_prefix( infix_to_prefix(expr) );
 	}

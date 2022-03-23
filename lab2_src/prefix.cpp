@@ -185,6 +185,12 @@ std::string infix_to_postfix(std::string infix)
 				stack.push(infix[i]);  // push current operator on stack
 			}
 			
+			/*// v. ignore whitespace
+			else if ( isspace(infix[i]) )
+			{
+				continue;
+			}*/
+			
 			// v. invalid character found
 			else
 			{
