@@ -3,23 +3,19 @@
   Project 2
 */
 
+
 #include "calc.h"
 
 
-enum class Operation { add, sub, mlt, div, exp, sqrt, convert_decimal};
-
-
-struct Calculator
+int main() {}
+/*struct Calculator
 {
 	Operation op;
-};
-
-
-int main()
-{
-// I. 
-
-
-// . End of program
-	return 0;
-}
+	double eval {};
+	
+	// evaluate prefix expression
+	void evaluatePrefix(std::string expr)
+	{
+		eval = evaluate_prefix( infix_to_prefix(expr) );
+	}
+};*/
