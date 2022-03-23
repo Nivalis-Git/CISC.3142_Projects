@@ -18,7 +18,7 @@ int main()
 	Calculator calc;
 	
 	calc.evaluate(expr);
-	printf("Result: %.2f\n", calc.eval);
+	printf("Result: %f\n", calc.eval);
 	
 	
 // . End of program

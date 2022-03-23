@@ -138,7 +138,7 @@ std::string infix_to_postfix(std::string infix)
 		for (int i = 0; i < size; i++)
 		{
 			// i. If an operand, append it to output
-			if ( isdigit(infix[i]) )
+			if ( isdigit(infix[i]) || infix[i]=='.' )
 			{
 				postfix += infix[i];
 			}
