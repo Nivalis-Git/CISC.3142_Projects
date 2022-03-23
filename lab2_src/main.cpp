@@ -3,7 +3,7 @@
   Project 2
 */
 
-#include "calc.h"
+#include "calculator.h"
 
 int main()
 {
