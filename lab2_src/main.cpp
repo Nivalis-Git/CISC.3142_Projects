@@ -15,9 +15,12 @@ int main()
 	char width[4] {' '};
 	std::fill_n(width, 4, ' ');
 	std::string rl1 { "1. The input alphabet is {0-9, ., (, ), +, -, *, /, ^}" }, 
-							rl2 { "2. Whitespace is undreadable--do not include whitespace" };
+							rl2 { "2. Whitespace is undreadable--do not include whitespace" }, 
+							rl3 { "3. The root function must be input as an exponent ( e.g., x^(3/2) )" };
 	
-	printf("Rules:\n%s%s\n%s%s\n\n", width, rl1.c_str(), width, rl2.c_str());
+	printf("Rules:\n%s%s\n%s%s\n%s%s\n\n", width, rl1.c_str(), 
+																				 width, rl2.c_str(), 
+																				 width, rl3.c_str());
 	
 	
 // II. Entering expression
