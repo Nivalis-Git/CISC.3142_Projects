@@ -17,4 +17,4 @@ Rules:
 
 	> "3+5+9^(4.5/5)" instead of than "3 + 5 + 9^(4.5 / 5)"
 
-3. 
+You will be prompted for input; upon typing the last character press enter.
