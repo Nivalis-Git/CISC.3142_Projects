@@ -2,8 +2,9 @@
 #define LAB3_SRC_COLLEGE_H
 
 
+#include <iostream>
 #include <fstream>
-#include <string>
+#include <sstream>
 
 #include "college_structs.h"
 
@@ -14,19 +15,22 @@ namespace class_space {
 
 class College
 {
-	typedef college::struct_space::Instructor Instructor;
-	typedef college::struct_space::Student Student;
-	typedef college::struct_space::Course Course;
-	typedef college::struct_space::EnrollHistory EnrollHistory;
-	
-	std::set<Instructor> instructor_roster;
-	std::set<Student> student_roster;
-	std::set<Course> course_history;
-	EnrollHistory enroll_history{};
+	private:
+		typedef college::struct_space::Instructor Instructor;
+		typedef college::struct_space::Student Student;
+		typedef college::struct_space::Course Course;
+		typedef college::struct_space::EnrollHistory EnrollHistory;
+		
+		std::set<Instructor> instructor_roster;
+		std::set<Student> student_roster;
+		std::set<Course> course_history;
+		EnrollHistory enroll_history{};
+		
+		void parseLine(College &college, std::string &data);
 	
 	public:
-		void read(College college, char *filename);
-		void parseLine(College college, std::string data);
+		void read(College &college, char *filename);
+		void list();
 };
 
 } // end of class_space namespace

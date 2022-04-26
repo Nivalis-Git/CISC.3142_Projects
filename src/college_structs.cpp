@@ -5,54 +5,45 @@ namespace college {
 
 namespace struct_space {
 
-Instructor::Instructor(char *id)
-{
-	this->id = id;
-}
+Instructor::Instructor(std::string &id) :
+	id{id} {}
 
 bool Instructor::operator ==(const Instructor &other) const
 {
-	return strcmp(this->id, other.id) == 0;
+	return std::tie(this->id) == std::tie(other.id);
 }
 
 bool Instructor::operator <(const Instructor &other) const
 {
-	return strcmp(this->id, other.id) < 0;
+	return std::tie(this->id) < std::tie(other.id);
 }
 
 
-Student::Student(char *id)
-{
-	this->id = id;
-}
+Student::Student(std::string &id) :
+	id{id} {}
 
 bool Student::operator ==(const Student &other) const
 {
-	return strcmp(this->id, other.id) == 0;
+	return std::tie(this->id) == std::tie(other.id);
 }
 
 bool Student::operator <(const Student &other) const
 {
-	return strcmp(this->id, other.id) < 0;
+	return std::tie(this->id) < std::tie(other.id);
 }
 
 
-Course::Course(int crs_num, char *term, char* section, char *instructor_id)
-{
-	this->crs_num = crs_num;
-	this->term = term;
-	this->section = section;
-	this->instructor_id = instructor_id;
-}
+Course::Course(int crs_num, std::string &term, std::string &section, std::string &instructor_id) :
+	crs_num{crs_num}, term{term}, section{section}, instructor_id{instructor_id} {}
 
 bool Course::operator ==(const Course &other) const
 {
-	return (this->crs_num == other.crs_num) && (strcmp(this->term, other.term) == 0) && (strcmp(this->section, other.section) < 0);
+	return std::tie(this->crs_num, this->term, this->section) == std::tie(other.crs_num, other.term, other.section);
 }
 
 bool Course::operator <(const Course &other) const
 {
-	return (this->crs_num < other.crs_num) && (strcmp(this->term, other.term) < 0) && (strcmp(this->section, other.section) < 0);
+	return std::tie(this->crs_num, this->term, this->section) < std::tie(other.crs_num, other.term, other.section);
 }
 
 
@@ -60,7 +51,7 @@ EnrollHistory::EnrollHistory()
 {
 }
 
-bool EnrollHistory::insert(struct Course course, std::pair<struct Student, char*> pr)
+bool EnrollHistory::insert(struct Course course, std::pair<struct Student, std::string> pr)
 {
 	if ( enrollment.insert({course, pr.first}).second )
 	{
@@ -71,10 +62,11 @@ bool EnrollHistory::insert(struct Course course, std::pair<struct Student, char*
 		}
 		else
 		{
-			std::vector<std::pair<struct Student, char*>> v {pr};
+			std::vector<std::pair<struct Student, std::string>> v {pr};
 			courseRoster.insert({course, v});
 		}
-		insert(pr.first, {course, pr.second});
+		std::pair<struct Course, std::string> test {course, pr.second};
+		insert(pr.first, {course,pr.second});
 		return true;
 	}
 	else
@@ -83,7 +75,7 @@ bool EnrollHistory::insert(struct Course course, std::pair<struct Student, char*
 	}
 }
 
-void EnrollHistory::insert(struct Student student, std::pair<struct Course, char*> pr)
+void EnrollHistory::insert(struct Student student, std::pair<struct Course, std::string> pr)
 {
 	auto roster = studentHistory.find(student);
 	if (roster != studentHistory.end())
@@ -92,7 +84,7 @@ void EnrollHistory::insert(struct Student student, std::pair<struct Course, char
 	}
 	else
 	{
-		std::vector<std::pair<struct Course, char*>> v {pr};
+		std::vector<std::pair<struct Course, std::string>> v {pr};
 		studentHistory.insert({student, v});
 	}
 }

@@ -2,7 +2,7 @@
 #define LAB3_SRC_COLLEGE_STRUCTS_H_
 
 
-#include <cstring>
+#include <string>
 #include <set>
 #include <map>
 #include <vector>
@@ -14,8 +14,8 @@ namespace struct_space {
 
 struct Instructor
 {
-	char *id;
-	Instructor(char *id);
+	std::string id;
+	Instructor(std::string &id);
 	
 	bool operator ==(const Instructor &other) const;
 	bool operator <(const Instructor &other) const;
@@ -23,8 +23,8 @@ struct Instructor
 
 struct Student
 {
-	char *id;
-	Student(char *id);
+	std::string id;
+	Student(std::string &id);
 	
 	bool operator ==(const Student &other) const;
 	bool operator <(const Student &other) const;
@@ -33,10 +33,10 @@ struct Student
 struct Course
 {
 	int crs_num;
-	char *term;
-	char *section;
-	char *instructor_id;
-	Course(int crs_num, char *term, char *section, char *instructor_id);
+	std::string term;
+	std::string section;
+	std::string instructor_id;
+	Course(int crs_num, std::string &term, std::string &section, std::string &instructor_id);
 	
 	bool operator ==(const Course &other) const;
 	bool operator <(const Course &other) const;
@@ -47,13 +47,11 @@ struct EnrollHistory
 		EnrollHistory();
 		
 		std::set< std::pair<struct Course, struct Student> > enrollment;
-		std::map< struct Course, std::vector<std::pair<struct Student, char*>> > courseRoster;
-		std::map< struct Student, std::vector<std::pair<struct Course, char*>> > studentHistory;
+		std::map< struct Course, std::vector<std::pair<struct Student, std::string>> > courseRoster;
+		std::map< struct Student, std::vector<std::pair<struct Course, std::string>> > studentHistory;
 		
-		bool insert(struct Course course, std::pair<struct Student, char*> pr);
-		
-		private:
-			void insert(struct Student student, std::pair<struct Course, char*> pr);
+		bool insert(struct Course course, std::pair<struct Student, std::string> pr);
+		void insert(struct Student student, std::pair<struct Course, std::string> pr);
 };
 
 }  // end of structs namespace
