@@ -7,5 +7,6 @@ int main(int argc, char *argv[])
 	College college;
 	college.read(college, "test.csv");
 	
+	college.list();
 	return 0;
 }

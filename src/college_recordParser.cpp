@@ -7,26 +7,33 @@ namespace class_space {
 
 void College::read(College college, char *filename)
 {
-	FILE* inFile = fopen(filename, "r");
-	fscanf(inFile, "%*[^\n]\n");
+	FILE *inFile = fopen(filename, "r");
+	endOfLine(inFile);
 	
-	char *buffer = (char*)malloc(512 * sizeof(*buffer));
-	while (fgetc(inFile) != '\n')
+	//char *line, *buffer;
+	//int buflen = 512 * sizeof(*buffer);
+	//buffer = (char*)malloc(buflen);
+	//line = (char*)malloc(buflen);
+	//fpos_t *fpos;
+	while (*line != EOF)
 	{
+		//fgetpos(inFile, fpos);
+		//int size = get_lineSize(inFile, buffer, buflen);
+		//line = (char*)realloc(line, size * sizeof(*line) + 1);
+		//fsetpos(inFile, fpos);
+		
+		fscanf(inFile, "%[^\n]", line);
+		parseLine(college, line, size);
 	}
 	
-	char *line;
-	while ( fscanf(inFile, "%[^\n]", line) == 1 )
-	{
-		parseLine(college, line);
-	}
-	
+	free(line);
+	free(buffer);
 	fclose(inFile);
 }
 
-void College::parseLine(College college, char *data)
+void College::parseLine(College college, char *data, int size)
 {
-	char *student_id, *instructor_id, *term, *section, *grade;
+	char student_id[size], instructor_id[size], term[size], section[size], grade[size];
 	int crs_num;
 	sscanf(data,"%[^,],%d,%[^,],%[^,],%[^,],%[^\n]", student_id, &crs_num, instructor_id, term, section, grade);
 	
@@ -38,6 +45,27 @@ void College::parseLine(College college, char *data)
 	instructor_roster.insert(instr);
 	course_history.insert(crs);
 	enroll_history.insert(crs, {stud, grade});
+}
+
+int College::get_lineSize(FILE *fp, char *buffer, size_t buflen)
+{
+	char *end = buffer + buflen - 1;  //Allow space for null terminator
+	char *dst = buffer;
+	
+	int c;
+	while ( (c = fgetc(fp)) != EOF && c != '\n' && dst < end )
+	{
+		*dst++ = c;
+	}
+	
+	*dst = '\0';
+	return( (c == EOF && dst == buffer) ? EOF : dst - buffer );
+}
+
+void College::endOfLine(FILE *fp)
+{
+	int c = fgetc(fp);
+	do {c = fgetc(fp);} while (c != '\n');
 }
 
 }  // end of class_space namespace
