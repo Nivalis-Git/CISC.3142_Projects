@@ -5,8 +5,12 @@ int main(int argc, char *argv[])
 {
 	using namespace college::class_space;
 	College college;
-	college.read(college, "../data/1115.csv");
-
+	
+	for (int i = 1; i < argc; i++)
+	{
+		college.read(argv[i]);
+	}
+	
 	college.list();
 	return 0;
 }

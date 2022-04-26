@@ -5,7 +5,7 @@ namespace college {
 
 namespace class_space {
 
-void College::read(College &college, char *filename)
+void College::read(char *filename)
 {
 	std::ifstream inFile(filename, std::ios::in);
 	std::string line{};
@@ -14,13 +14,13 @@ void College::read(College &college, char *filename)
 	while ( inFile.peek() != EOF )
 	{
 		getline(inFile, line);
-		parseLine(college, line);
+		parseLine(line);
 	}
 	
 	inFile.close();
 }
 
-void College::parseLine(College &college, std::string &data)
+void College::parseLine(std::string &data)
 {
 	std::string student_id, crs_temp, instructor_id, term, section, grade;
 	std::stringstream ss{data};

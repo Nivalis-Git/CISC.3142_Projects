@@ -26,10 +26,10 @@ class College
 		std::set<Course> course_history;
 		EnrollHistory enroll_history{};
 		
-		void parseLine(College &college, std::string &data);
+		void parseLine(std::string &data);
 	
 	public:
-		void read(College &college, char *filename);
+		void read(char *filename);
 		void list();
 };
 
