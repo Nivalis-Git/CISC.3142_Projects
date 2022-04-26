@@ -1,26 +1,26 @@
 # Instructions
-From the directory type `make lab2` to run the program.
-
-
+From the directory type `make lab3` to run the program.
+# File Structure
+The data used is implemented as a submodule (using https://gist.github.com/katychuang/d279545d975c1652689e8195e2426adf)
 Rules:
 
-1. The input alphabet is {0-9, ., (, ), +, -, *, /, ^}
+1. tst
 
-	> Addition: +
+	> tst
 	>
-	> Subtraction: -
+	> tst
 	>
-	> Multiplication: *
+	> tst
 	>
-	> Division: /
+	> tst
 	>
-	> Exponentiation: ^
+	> tst
 
-2. Whitespace is undreadable--do not include whitespace
+2. tst
 
-	> "3+5+9^(4.5/5)" instead of than "3 + 5 + 9^(4.5 / 5)"
+	> tst
 
-3. The root function must be input as an exponent ( e.g., x^(3/2) )
+3. tst
 
 
-You will be prompted for input; upon typing the last character press enter.
+tst.
