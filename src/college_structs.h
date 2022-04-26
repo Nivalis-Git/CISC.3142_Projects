@@ -2,7 +2,6 @@
 #define LAB3_SRC_COLLEGE_STRUCTS_H_
 
 
-#include <cstdio>
 #include <cstring>
 #include <set>
 #include <map>

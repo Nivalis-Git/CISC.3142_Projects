@@ -2,7 +2,11 @@
 #define LAB3_SRC_COLLEGE_H
 
 
+#include <fstream>
+#include <string>
+
 #include "college_structs.h"
+
 
 namespace college {
 
@@ -22,7 +26,7 @@ class College
 	
 	public:
 		void read(College college, char *filename);
-		void parseLine(College college, char *fp);
+		void parseLine(College college, std::string data);
 };
 
 } // end of class_space namespace

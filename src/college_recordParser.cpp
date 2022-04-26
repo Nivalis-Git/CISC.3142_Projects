@@ -7,24 +7,20 @@ namespace class_space {
 
 void College::read(College college, char *filename)
 {
-	FILE* inFile = fopen(filename, "r");
-	fscanf(inFile, "%*[^\n]\n");
+	std::ifstream inFile(filename, std::ios::in);
+	std::string line {};
+	getline(inFile, line);
 	
-	char *buffer = (char*)malloc(512 * sizeof(*buffer));
-	while (fgetc(inFile) != '\n')
+	while ( inFile.peek() != EOF )
 	{
-	}
-	
-	char *line;
-	while ( fscanf(inFile, "%[^\n]", line) == 1 )
-	{
+		getline(inFile, line);
 		parseLine(college, line);
 	}
 	
-	fclose(inFile);
+	inFile.close();
 }
 
-void College::parseLine(College college, char *data)
+void College::parseLine(College college, std::string data)
 {
 	char *student_id, *instructor_id, *term, *section, *grade;
 	int crs_num;
