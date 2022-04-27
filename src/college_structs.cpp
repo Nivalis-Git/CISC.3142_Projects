@@ -1,9 +1,11 @@
 #include "college_structs.h"
 
 
-namespace college {
+namespace lab3 {
 
-namespace struct_space {
+
+namespace college_structs {
+
 
 Instructor::Instructor(std::string &id) :
 	id{id} {}
@@ -55,15 +57,15 @@ bool EnrollHistory::insert(struct Course course, std::pair<struct Student, std::
 {
 	if ( enrollment.insert({course, pr.first}).second )
 	{
-		auto roster = courseRoster.find(course);
-		if (roster != courseRoster.end())
+		auto roster = course_roster.find(course);
+		if (roster != course_roster.end())
 		{
 			(roster->second).push_back(pr);
 		}
 		else
 		{
 			std::vector<std::pair<struct Student, std::string>> v {pr};
-			courseRoster.insert({course, v});
+			course_roster.insert({course, v});
 		}
 		std::pair<struct Course, std::string> test {course, pr.second};
 		insert(pr.first, {course,pr.second});
@@ -77,18 +79,30 @@ bool EnrollHistory::insert(struct Course course, std::pair<struct Student, std::
 
 void EnrollHistory::insert(struct Student student, std::pair<struct Course, std::string> pr)
 {
-	auto roster = studentHistory.find(student);
-	if (roster != studentHistory.end())
+	auto roster = student_history.find(student);
+	if (roster != student_history.end())
 	{
 		(roster->second).push_back(pr);
 	}
 	else
 	{
 		std::vector<std::pair<struct Course, std::string>> v {pr};
-		studentHistory.insert({student, v});
+		student_history.insert({student, v});
 	}
 }
 
-}  // end of struct_space namespoace
+std::vector<std::pair<Student, std::string>> EnrollHistory::get_courseRoster(Course crs)
+{
+	return course_roster.find(crs)->second;
+}
 
-}  // end of college namespace
+std::vector<std::pair<Course, std::string>> EnrollHistory::get_studentHistory(Student stud)
+{
+	return student_history.find(stud)->second;
+}
+
+
+}  // end of college_structs namespoace
+
+
+}  // end of lab3 namespace

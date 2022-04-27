@@ -8,9 +8,11 @@
 #include <vector>
 
 
-namespace college {
+namespace lab3 {
 
-namespace struct_space {
+
+namespace college_structs {
+
 
 struct Instructor
 {
@@ -47,15 +49,21 @@ struct EnrollHistory
 		EnrollHistory();
 		
 		std::set< std::pair<struct Course, struct Student> > enrollment;
-		std::map< struct Course, std::vector<std::pair<struct Student, std::string>> > courseRoster;
-		std::map< struct Student, std::vector<std::pair<struct Course, std::string>> > studentHistory;
+		std::map< struct Course, std::vector<std::pair<struct Student, std::string>> > course_roster;
+		std::map< struct Student, std::vector<std::pair<struct Course, std::string>> > student_history;
 		
 		bool insert(struct Course course, std::pair<struct Student, std::string> pr);
 		void insert(struct Student student, std::pair<struct Course, std::string> pr);
+		
+		std::vector<std::pair<Student, std::string>> get_courseRoster(Course crs);
+		std::vector<std::pair<Course, std::string>> get_studentHistory(Student stud);
 };
 
-}  // end of structs namespace
 
-}  // end of college namespace
+}  // end of college_structs namespace
+
+
+}  // end of lab3 namespace
+
 
 #endif  // LAB3_SRC_COLLEGE_STRUCTS_H_
