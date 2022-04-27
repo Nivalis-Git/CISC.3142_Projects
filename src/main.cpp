@@ -44,8 +44,8 @@ int main(int argc, char *argv[])
 		filename.append("_fall-vs-spring.txt");
 	outFile = fopen(filename.c_str(), "w");
 	
-	college.termPassRate_per_courseNum(outFile, college.get_courseHistory(), "Fall");
-	college.termPassRate_per_courseNum(outFile, college.get_courseHistory(), "Spring");
+	college.termPassRate_per_courseNum(outFile, college.get_courseHistory(), {"Fall"});
+	college.termPassRate_per_courseNum(outFile, college.get_courseHistory(), {"Spring"});
 	
 	fclose(outFile);
 

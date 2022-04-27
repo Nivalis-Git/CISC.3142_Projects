@@ -29,6 +29,8 @@ void College::read(char *filename)
 
 void College::parseLine(std::string &data)
 {
+	
+	// obtain data
 	std::string student_id, crs_temp, instructor_id, term_id, section, grade;
 	std::stringstream ss{data};
 	
@@ -40,18 +42,19 @@ void College::parseLine(std::string &data)
 	getline(ss, section, ',');
 	getline(ss, grade, '\n');
 	
-	Student stud = Student(student_id);
-	Instructor instr = Instructor(instructor_id);
-	Course crs = Course(crs_num, term_id, section, instructor_id);
-	if (fall(term_id))
-	{
-		
-	}
 	
-	student_roster.insert(stud);
-	instructor_roster.insert(instr);
-	course_history.insert(crs);
+	// insert data
+	Student stud = Student(student_id);
+	register_student(stud);
+	
+	register_instructor({instructor_id});
+	
+	Course crs = Course(crs_num, term_id, section, instructor_id);
+	register_course(crs);
 	enroll_history.insert(crs, {stud, grade});
+	
+	register_term(term_id);
+	
 }
 
 

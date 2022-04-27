@@ -57,13 +57,11 @@ struct Course
 struct Term
 {
 	std::string name;
-	std::set<std::string> id_set;  // Set of corresponding term IDs
 	
 	Term(std::string name);
 	
-	bool insert_id(std::string term_id);
-	
-	std::set<std::string> get_id_set();
+	bool operator ==(const Term &other) const;
+	bool operator <(const Term &other) const;
 };
 
 

@@ -157,6 +157,58 @@ bool College::register_course(Course crs)
 	return course_history.insert(crs).second;
 }
 
+bool College::register_term(std::string term_id)
+{
+
+	if (fall(term_id))
+	{
+		Term term{"Fall"};
+		std::set<std::string> termID_set {term_id};
+		
+		auto pr = terms.insert({term, termID_set});
+		if ( !pr.second )
+		{
+			if ( (pr.first)->second.insert(term_id).second )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	else if (spring(term_id))
+	{
+		Term term{"Spring"};
+		std::set<std::string> termID_set {term_id};
+		
+		auto pr = terms.insert({term, termID_set});
+		if ( !pr.second )
+		{
+			if ( (pr.first)->second.insert(term_id).second )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	else
+	{
+		return false;
+	}
+	
+}
+
 
 
 
@@ -188,17 +240,17 @@ bool College::withdraw(std::string grade)
 	else {return false;}
 }
 
-bool College::fallTerm(Course crs)
+bool College::fall(std::string term_id)
 {
-	bool fall = (crs.term_id == "T04" || crs.term_id == "T08" || crs.term_id == "T12" || crs.term_id == "T16" || crs.term_id == "T20" || crs.term_id == "T23");
+	bool fall = (term_id == "T04" || term_id == "T08" || term_id == "T12" || term_id == "T16" || term_id == "T20" || term_id == "T23");
 	
 	if (fall) {return true;}
 	else {return false;}
 }
 
-bool College::springTerm(Course crs)
+bool College::spring(std::string term_id)
 {
-	bool spring = (crs.term_id == "T02" || crs.term_id == "T06" || crs.term_id == "T10" || crs.term_id == "T14" || crs.term_id == "T18" || crs.term_id == "T21");
+	bool spring = (term_id == "T02" || term_id == "T06" || term_id == "T10" || term_id == "T14" || term_id == "T18" || term_id == "T21");
 	
 	if (spring) {return true;}
 	else {return false;}

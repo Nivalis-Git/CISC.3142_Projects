@@ -102,17 +102,26 @@ void College::withdrawRate_per_courseNum(FILE *fp, std::set<Course> courses)
 	}
 }
 
-void College::termPassRate_per_courseNum(FILE *fp, std::set<Course> courses, std::string term)
+void College::termPassRate_per_courseNum(FILE *fp, std::set<Course> courses, Term term)
 {
-	fprintf(fp, "%s Pass Rates per Course Number\n", term.c_str());
+	fprintf(fp, "%s Pass Rates per Course Number\n", term.name.c_str());
 	
-	std::vector<std::string> grades;
 	std::set<int> crsNums = get_courseNumberSet(courses);
-	for (auto it = crsNums.begin(); it != crsNums.end(); it++)
+	auto termIds = terms.find(term)->second;
+	//for (auto itr = termIds.begin(); itr != termIds.end(); itr++)
+		//{
+			//fprintf(fp, "%s    ", (*itr).c_str());
+		//} //fprintf(fp, "\n");
+	
+	//std::vector<std::string> grades;
+	//for (auto it = crsNums.begin(); it != crsNums.end(); it++)
 	{
-		collect_courseGrades(courses, grades, *it, term);
-		fprintf(fp, "%*d:    %.2f\n", printWidth, *it, passRate(grades));
-		grades.clear();
+		//for (auto itr = termIds.begin(); itr != termIds.end(); itr++)
+		//{
+			//collect_courseGrades(courses, grades, *it, *itr);
+		//}
+		//fprintf(fp, "%*d:    %.2f\n", printWidth, *it, passRate(grades));
+		//grades.clear();
 	}
 }
 

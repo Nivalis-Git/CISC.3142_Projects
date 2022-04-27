@@ -63,16 +63,17 @@ bool Course::operator <(const Course &other) const
 
 
 /*    Term    */
-Term::Term(std::string name) : name{name} {}
+Term::Term(std::string name) :
+	name{name} {}
 
-bool Term::insert_id(std::string term_id)
+bool Term::operator ==(const Term &other) const
 {
-	return id_set.insert(term_id).second;
+	return this->name == other.name;
 }
 
-std::set<std::string> Term::get_id_set()
+bool Term::operator <(const Term &other) const
 {
-	return id_set;
+	return this->name < other.name;
 }
 
 

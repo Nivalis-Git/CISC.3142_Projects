@@ -36,7 +36,7 @@ class College
 		std::set<Student> student_roster;
 		std::set<Instructor> instructor_roster;
 		std::set<Course> course_history;
-		std::set<Term> terms;
+		std::map<Term, std::set<std::string>> terms;
 		EnrollHistory enroll_history;
 		
 		const int printWidth {17};  // width padding for printf
@@ -65,13 +65,14 @@ class College
 		bool register_student(Student stud);
 		bool register_instructor(Instructor instr);
 		bool register_course(Course crs);
+		bool register_term(std::string term_id);
 		
 		/*    Checks and Tests    */
 		bool pass(std::string grade);
 		bool fail(std::string grade);
 		bool withdraw(std::string grade);
-		bool fallTerm(Course crs);
-		bool springTerm(Course crs);
+		bool fall(std::string term_id);
+		bool spring(std::string term_id);
 		
 		/*    Stats and Counting    */
 		float passRate(std::vector<std::string> &grades);
@@ -82,7 +83,7 @@ class College
 		void passRate_per_courseNum(FILE *fp, std::set<Course> courses);
 		void withdrawRate_per_instructor(FILE *fp, std::set<Instructor> instructors);
 		void withdrawRate_per_courseNum(FILE *fp, std::set<Course> courses);
-		void termPassRate_per_courseNum(FILE *fp, std::set<Course> courses, std::string term);
+		void termPassRate_per_courseNum(FILE *fp, std::set<Course> courses, Term term);
 		
 		/*    Reading    */
 		void read(char *filename);
