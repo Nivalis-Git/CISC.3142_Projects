@@ -43,7 +43,7 @@ std::vector<std::pair<Course, std::string>> College::get_studentHistory(Student 
 /*    Derived Get methods    */
 
 // Get a set of all unique course numbers within a set of courses
-std::set<int> College::get_courseNumSet(std::set<Course> courses)
+std::set<int> College::get_courseNumberSet(std::set<Course> courses)
 {
 	std::set<int> crsNumbers;
 	for (auto it = courses.begin(); it != courses.end(); it++)
@@ -174,7 +174,7 @@ bool College::pass(std::string grade)
 
 bool College::fail(std::string grade)
 {
-	bool fail = (grade == "D+" || grade == "D" || grade == "D-" || grade == "F");
+	bool fail = (grade == "D+" || grade == "D" || grade == "D-" || grade == "F" || grade == "INC");
 	
 	if (fail) {return true;}
 	else {return false;}
@@ -195,7 +195,7 @@ bool College::withdraw(std::string grade)
 
 float College::passRate(std::vector<std::string> &grades)
 {
-	int passCount;
+	float passCount {0};
 	for (std::string grade : grades)
 	{
 		if (pass(grade))
@@ -204,12 +204,12 @@ float College::passRate(std::vector<std::string> &grades)
 		}
 	}
 	
-	return passCount/grades.size();
+	return (passCount/grades.size() * 100);
 }
 
 float College::withdrawRate(std::vector<std::string> &grades)
 {
-	int wCount;
+	float wCount {0};
 	for (std::string grade : grades)
 	{
 		if (withdraw(grade))
@@ -218,7 +218,7 @@ float College::withdrawRate(std::vector<std::string> &grades)
 		}
 	}
 	
-	return wCount/grades.size();
+	return (wCount/grades.size() * 100);
 }
 
 

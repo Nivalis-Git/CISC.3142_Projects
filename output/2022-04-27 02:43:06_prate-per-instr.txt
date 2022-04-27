@@ -1,0 +1,134 @@
+Instructor: I01
+  Pass Rates
+        1115:  124.000000
+Overall Pass Rate:  124.000000
+
+Instructor: I02
+  Pass Rates
+        1115:  218.000000
+Overall Pass Rate:  218.000000
+
+Instructor: I03
+  Pass Rates
+        3130:  820.000000
+Overall Pass Rate:  820.000000
+
+Instructor: I04
+  Pass Rates
+        1115:  372.000000
+Overall Pass Rate:  372.000000
+
+Instructor: I06
+  Pass Rates
+        3115:  475.000000
+Overall Pass Rate:  475.000000
+
+Instructor: I07
+  Pass Rates
+        3115:  937.000000
+        3130:  96.000000
+Overall Pass Rate:  87.000000
+
+Instructor: I08
+  Pass Rates
+        1115:  93.000000
+Overall Pass Rate:  93.000000
+
+Instructor: I10
+  Pass Rates
+        3115:  236.000000
+Overall Pass Rate:  236.000000
+
+Instructor: I11
+  Pass Rates
+        3115:  529.000000
+Overall Pass Rate:  529.000000
+
+Instructor: I12
+  Pass Rates
+        1115:  111.000000
+Overall Pass Rate:  111.000000
+
+Instructor: I14
+  Pass Rates
+        1115:  220.000000
+        3115:  400.000000
+Overall Pass Rate:  142.000000
+
+Instructor: I15
+  Pass Rates
+        3115:  192.000000
+Overall Pass Rate:  192.000000
+
+Instructor: I16
+  Pass Rates
+        1115:  105.000000
+Overall Pass Rate:  105.000000
+
+Instructor: I17
+  Pass Rates
+        3130:  489.000000
+Overall Pass Rate:  489.000000
+
+Instructor: I18
+  Pass Rates
+        1115:  139.000000
+        3130:  104.000000
+Overall Pass Rate:  60.000000
+
+Instructor: I19
+  Pass Rates
+        3115:  234.000000
+        3130:  169.000000
+Overall Pass Rate:  98.000000
+
+Instructor: I20
+  Pass Rates
+        1115:  137.000000
+Overall Pass Rate:  137.000000
+
+Instructor: I21
+  Pass Rates
+        1115:  182.000000
+        3115:  190.000000
+Overall Pass Rate:  93.000000
+
+Instructor: I22
+  Pass Rates
+        1115:  619.000000
+        3115:  936.000000
+Overall Pass Rate:  373.000000
+
+Instructor: I23
+  Pass Rates
+        1115:  546.000000
+        3115:  325.000000
+Overall Pass Rate:  204.000000
+
+Instructor: I24
+  Pass Rates
+        3115:  937.000000
+Overall Pass Rate:  937.000000
+
+Instructor: I25
+  Pass Rates
+        1115:  1092.000000
+Overall Pass Rate:  1092.000000
+
+Instructor: I26
+  Pass Rates
+        1115:  1092.000000
+Overall Pass Rate:  1092.000000
+
+Instructor: I27
+  Pass Rates
+        3115:  238.000000
+        3130:  819.000000
+Overall Pass Rate:  184.000000
+
+Instructor: I28
+  Pass Rates
+        1115:  69.000000
+        3115:  328.000000
+Overall Pass Rate:  57.000000
+

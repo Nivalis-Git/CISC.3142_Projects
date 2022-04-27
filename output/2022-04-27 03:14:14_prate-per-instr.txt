@@ -1,0 +1,134 @@
+Instructor: I01
+       Pass Rates
+             1115:  57.36
+Overall Pass Rate:  57.36
+
+Instructor: I02
+       Pass Rates
+             1115:  44.00
+Overall Pass Rate:  44.00
+
+Instructor: I03
+       Pass Rates
+             3130:  90.00
+Overall Pass Rate:  90.00
+
+Instructor: I04
+       Pass Rates
+             1115:  35.23
+Overall Pass Rate:  35.23
+
+Instructor: I06
+       Pass Rates
+             3115:  75.36
+Overall Pass Rate:  75.36
+
+Instructor: I07
+       Pass Rates
+             3115:  88.57
+             3130:  88.89
+Overall Pass Rate:  88.86
+
+Instructor: I08
+       Pass Rates
+             1115:  39.09
+Overall Pass Rate:  39.09
+
+Instructor: I10
+       Pass Rates
+             3115:  87.77
+Overall Pass Rate:  87.77
+
+Instructor: I11
+       Pass Rates
+             3115:  61.29
+Overall Pass Rate:  61.29
+
+Instructor: I12
+       Pass Rates
+             1115:  56.08
+Overall Pass Rate:  56.08
+
+Instructor: I14
+       Pass Rates
+             1115:  70.47
+             3115:  93.90
+Overall Pass Rate:  78.79
+
+Instructor: I15
+       Pass Rates
+             3115:  68.42
+Overall Pass Rate:  68.42
+
+Instructor: I16
+       Pass Rates
+             1115:  43.91
+Overall Pass Rate:  43.91
+
+Instructor: I17
+       Pass Rates
+             3130:  67.16
+Overall Pass Rate:  67.16
+
+Instructor: I18
+       Pass Rates
+             1115:  53.62
+             3130:  59.55
+Overall Pass Rate:  57.01
+
+Instructor: I19
+       Pass Rates
+             3115:  77.86
+             3130:  78.87
+Overall Pass Rate:  78.44
+
+Instructor: I20
+       Pass Rates
+             1115:  59.58
+Overall Pass Rate:  59.58
+
+Instructor: I21
+       Pass Rates
+             1115:  46.11
+             3115:  61.27
+Overall Pass Rate:  53.54
+
+Instructor: I22
+       Pass Rates
+             1115:  79.25
+             3115:  68.57
+Overall Pass Rate:  75.00
+
+Instructor: I23
+       Pass Rates
+             1115:  70.00
+             3115:  79.21
+Overall Pass Rate:  75.78
+
+Instructor: I24
+       Pass Rates
+             3115:  82.86
+Overall Pass Rate:  82.86
+
+Instructor: I25
+       Pass Rates
+             1115:  63.33
+Overall Pass Rate:  63.33
+
+Instructor: I26
+       Pass Rates
+             1115:  66.67
+Overall Pass Rate:  66.67
+
+Instructor: I27
+       Pass Rates
+             3115:  84.06
+             3130:  82.50
+Overall Pass Rate:  83.71
+
+Instructor: I28
+       Pass Rates
+             1115:  29.26
+             3115:  43.00
+Overall Pass Rate:  31.65
+

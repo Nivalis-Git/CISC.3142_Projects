@@ -47,7 +47,7 @@ class College
 		std::vector<std::pair<Course, std::string>> get_studentHistory(Student stud);
 		
 		/*    Derived Get methods    */
-		std::set<int> get_courseNumSet(std::set<Course> courses);
+		std::set<int> get_courseNumberSet(std::set<Course> courses);
 		std::set<Course> get_instructorCourseSet(Instructor instr);
 		
 		/*    Collection Methods    */
