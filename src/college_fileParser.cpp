@@ -4,9 +4,14 @@
 namespace lab3 {
 
 
+
+
 namespace college {
 
 
+
+
+/*    Reading    */
 void College::read(char *filename)
 {
 	std::ifstream inFile(filename, std::ios::in);
@@ -45,31 +50,35 @@ void College::parseLine(std::string &data)
 	enroll_history.insert(crs, {stud, grade});
 }
 
-void College::print_studentRoster(FILE *fp)
+
+
+
+/*    Writing    */
+void College::print_studentSet(FILE *fp, std::set<Student> students)
 {
-	fprintf(fp, "Student Count: %d\n", student_roster.size());
+	fprintf(fp, "Student Count: %d\n", students.size());
 	
-	for (auto it = student_roster.begin(); it != student_roster.end(); it++)
+	for (auto it = students.begin(); it != students.end(); it++)
 	{
 		fprintf(fp, "%*s\n", printWidth, (*it).id.c_str());
 	}
 }
 
-void College::print_instructorRoster(FILE *fp)
+void College::print_instructorSet(FILE *fp, std::set<Instructor> instructors)
 {
-	fprintf(fp, "Instructor Count: %d\n", instructor_roster.size());
+	fprintf(fp, "Instructor Count: %d\n", instructors.size());
 	
-	for (auto it = instructor_roster.begin(); it != instructor_roster.end(); it++)
+	for (auto it = instructors.begin(); it != instructors.end(); it++)
 	{
 		fprintf(fp, "%*s\n", printWidth, (*it).id.c_str());
 	}
 }
 
-void College::print_courseHistory(FILE *fp)
+void College::print_courseSet(FILE *fp, std::set<Course> courses)
 {
-	fprintf(fp, "Class Count: %d\n", course_history.size());
+	fprintf(fp, "Class Count: %d\n", courses.size());
 	
-	for (auto it = course_history.begin(); it != course_history.end(); it++)
+	for (auto it = courses.begin(); it != courses.end(); it++)
 	{
 		fprintf(fp, "%*d    %s    %s    %s\n", printWidth,
 			(*it).crs_num, (*it).term.c_str(), (*it).section.c_str(),
@@ -99,8 +108,26 @@ void College::print_studentHistory(FILE *fp, Student stud)
 	}
 }
 
+std::string College::timestamp()
+{
+	auto now = std::chrono::system_clock::now();
+	//auto UTC = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch()).count();
+
+	auto in_time_t = std::chrono::system_clock::to_time_t(now);
+	std::stringstream datetime;
+	datetime << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X");
+
+	// UTC
+		//std::ofstream myFile1("report_" + std::to_string(UTC) + ".csv");
+	return datetime.str();
+}
+
+
+
 
 }  // end of college namespace
+
+
 
 
 }  // end of lab3 namespace

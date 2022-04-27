@@ -4,9 +4,14 @@
 namespace lab3 {
 
 
+
+
 namespace college_structs {
 
 
+
+
+/*    Instructor    */
 Instructor::Instructor(std::string &id) :
 	id{id} {}
 
@@ -21,6 +26,9 @@ bool Instructor::operator <(const Instructor &other) const
 }
 
 
+
+
+/*    Student    */
 Student::Student(std::string &id) :
 	id{id} {}
 
@@ -35,6 +43,9 @@ bool Student::operator <(const Student &other) const
 }
 
 
+
+
+/*    Course    */
 Course::Course(int crs_num, std::string &term, std::string &section, std::string &instructor_id) :
 	crs_num{crs_num}, term{term}, section{section}, instructor_id{instructor_id} {}
 
@@ -49,6 +60,9 @@ bool Course::operator <(const Course &other) const
 }
 
 
+
+
+/*    EnrollHistory    */
 EnrollHistory::EnrollHistory()
 {
 }
@@ -102,7 +116,11 @@ std::vector<std::pair<Course, std::string>> EnrollHistory::get_studentHistory(St
 }
 
 
+
+
 }  // end of college_structs namespoace
+
+
 
 
 }  // end of lab3 namespace

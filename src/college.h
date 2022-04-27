@@ -2,7 +2,8 @@
 #define LAB3_SRC_COLLEGE_H
 
 
-#include <iostream>
+#include <chrono>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 
@@ -12,13 +13,19 @@
 namespace lab3 {
 
 
+
+
 typedef lab3::college_structs::Instructor Instructor;
 typedef lab3::college_structs::Student Student;
 typedef lab3::college_structs::Course Course;
 typedef lab3::college_structs::EnrollHistory EnrollHistory;
 
 
+
+
 namespace college {
+
+
 
 
 class College
@@ -30,8 +37,6 @@ class College
 		EnrollHistory enroll_history{};
 		
 		const int printWidth {12};  // width padding for printf
-		
-		void parseLine(std::string &data);  // helper to [[ void read(char *filename); ]]
 	
 	public:
 		/*    Get Methods    */
@@ -42,11 +47,16 @@ class College
 		std::vector<std::pair<Course, std::string>> get_studentHistory(Student stud);
 		
 		/*    Derived Get methods    */
-		std::set<int> get_courseSet
+		std::set<int> get_courseNumSet(std::set<Course> courses);
+		std::set<Course> get_instructorCourseSet(Instructor instr);
 		
 		/*    Collection Methods    */
 		void collect_studentGrades(Student stud, std::vector<std::string> &grades);
+		void collect_studentGrades(std::set<Student> students, std::vector<std::string> &grades);
 		void collect_courseGrades(Course crs, std::vector<std::string> &grades);
+		void collect_courseGrades(std::set<Course> courses, std::vector<std::string> &grades);
+		void collect_courseGrades(std::set<Course> courses, std::vector<std::string> &grades, int crs_num);
+		void collect_courseGrades(std::set<Course> courses, std::vector<std::string> &grades, int crs_num, std::string term);
 		
 		/*    Insertion Methods     */
 		bool register_student(Student stud);
@@ -59,20 +69,28 @@ class College
 		bool withdraw(std::string grade);
 		
 		/*    Stats and Counting    */
-		float passRate(std::vector<std::string> grades);
-		float withdrawRate(std::vector<std::string> grades);
+		float passRate(std::vector<std::string> &grades);
+		float withdrawRate(std::vector<std::string> &grades);
 		
-		/*    File Reading and Writing    */
+		/*    Reading    */
 		void read(char *filename);
-		void print_studentRoster(FILE *fp);
-		void print_instructorRoster(FILE *fp);
-		void print_courseHistory(FILE *fp);
+		void parseLine(std::string &data);  // helper to the read method
+		
+		/*    Writing    */
+		static std::string timestamp();
+		void print_studentSet(FILE *fp, std::set<Student> students);
+		void print_instructorSet(FILE *fp, std::set<Instructor> instructors);
+		void print_courseSet(FILE *fp, std::set<Course> courses);
 		void print_courseRoster(FILE *fp, Course crs);
 		void print_studentHistory(FILE *fp, Student stud);
 };
 
 
+
+
 } // end of college namespace
+
+
 
 
 } // end of lab3 namespace
