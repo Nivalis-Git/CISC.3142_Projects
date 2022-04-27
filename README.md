@@ -1,5 +1,7 @@
 # Instructions
 From the directory type `make lab3` to run the program.
+
+Type `make clean` to remove all the output files.
 # File Structure
 The data used is implemented as a submodule (using https://gist.github.com/katychuang/d279545d975c1652689e8195e2426adf)
 Rules:
