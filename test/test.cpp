@@ -1,4 +1,4 @@
-#include "college.h"
+#include "../src/college.h"
 
 
 int main(int argc, char *argv[])
@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 	
 	
 	// printing all unique course numbers
-	std::set<int> courseNumbers = college.get_courseNumSet(courseHistory);
+	std::set<int> courseNumbers = college.get_courseNumberSet(courseHistory);
 	for (auto it = courseNumbers.begin(); it != courseNumbers.end(); it++)
 	{
 		fprintf(outFile, "%d    ", *it);

@@ -46,33 +46,17 @@ bool Student::operator <(const Student &other) const
 
 
 /*    Course    */
-Course::Course(int crs_num, std::string &term_id, std::string &section, std::string &instructor_id) :
-	crs_num{crs_num}, term_id{term_id}, section{section}, instructor_id{instructor_id} {}
+Course::Course(int crs_num, std::string &term, std::string &section, std::string &instructor_id) :
+	crs_num{crs_num}, term{term}, section{section}, instructor_id{instructor_id} {}
 
 bool Course::operator ==(const Course &other) const
 {
-	return std::tie(this->crs_num, this->term_id, this->section) == std::tie(other.crs_num, other.term_id, other.section);
+	return std::tie(this->crs_num, this->term, this->section) == std::tie(other.crs_num, other.term, other.section);
 }
 
 bool Course::operator <(const Course &other) const
 {
-	return std::tie(this->crs_num, this->term_id, this->section) < std::tie(other.crs_num, other.term_id, other.section);
-}
-
-
-
-
-/*    Term    */
-Term::Term(std::string name) : name{name} {}
-
-bool Term::insert_id(std::string term_id)
-{
-	return id_set.insert(term_id).second;
-}
-
-std::set<std::string> Term::get_id_set()
-{
-	return id_set;
+	return std::tie(this->crs_num, this->term, this->section) < std::tie(other.crs_num, other.term, other.section);
 }
 
 

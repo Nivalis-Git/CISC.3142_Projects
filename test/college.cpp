@@ -126,11 +126,11 @@ void College::collect_courseGrades(std::set<Course> courses, std::vector<std::st
 }
 
 // Collect grades from a set of courses but only from those that match the given criteria
-void College::collect_courseGrades(std::set<Course> courses, std::vector<std::string> &grades, int crs_num, std::string term_id)
+void College::collect_courseGrades(std::set<Course> courses, std::vector<std::string> &grades, int crs_num, std::string term)
 {
 	for (auto it = courses.begin(); it != courses.end(); it++)
 	{
-		if (it->crs_num == crs_num && it->term_id == term_id)
+		if (it->crs_num == crs_num && it->term == term)
 		{
 			collect_courseGrades(*it, grades);
 		}
@@ -160,7 +160,7 @@ bool College::register_course(Course crs)
 
 
 
-/*    Checks and Tests    */
+/*    Conditional Tests    */
 
 bool College::pass(std::string grade)
 {
@@ -185,22 +185,6 @@ bool College::withdraw(std::string grade)
 	bool withdraw = (grade == "W" || grade == "WU" || grade == "WD" || grade == "WN");
 	
 	if (withdraw) {return true;}
-	else {return false;}
-}
-
-bool College::fallTerm(Course crs)
-{
-	bool fall = (crs.term_id == "T04" || crs.term_id == "T08" || crs.term_id == "T12" || crs.term_id == "T16" || crs.term_id == "T20" || crs.term_id == "T23");
-	
-	if (fall) {return true;}
-	else {return false;}
-}
-
-bool College::springTerm(Course crs)
-{
-	bool spring = (crs.term_id == "T02" || crs.term_id == "T06" || crs.term_id == "T10" || crs.term_id == "T14" || crs.term_id == "T18" || crs.term_id == "T21");
-	
-	if (spring) {return true;}
 	else {return false;}
 }
 

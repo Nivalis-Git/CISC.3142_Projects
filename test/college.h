@@ -15,11 +15,9 @@ namespace lab3 {
 
 
 
-// For quick reference without the need of a namespace
 typedef lab3::college_structs::Instructor Instructor;
 typedef lab3::college_structs::Student Student;
 typedef lab3::college_structs::Course Course;
-typedef lab3::college_structs::Term Term;
 typedef lab3::college_structs::EnrollHistory EnrollHistory;
 
 
@@ -36,10 +34,9 @@ class College
 		std::set<Student> student_roster;
 		std::set<Instructor> instructor_roster;
 		std::set<Course> course_history;
-		std::set<Term> terms;
-		EnrollHistory enroll_history;
+		EnrollHistory enroll_history{};
 		
-		const int printWidth {17};  // width padding for printf
+		const int printWidth {12};  // width padding for printf
 	
 	public:
 		/*    Get Methods    */
@@ -66,23 +63,14 @@ class College
 		bool register_instructor(Instructor instr);
 		bool register_course(Course crs);
 		
-		/*    Checks and Tests    */
+		/*    Conditional Tests    */
 		bool pass(std::string grade);
 		bool fail(std::string grade);
 		bool withdraw(std::string grade);
-		bool fallTerm(Course crs);
-		bool springTerm(Course crs);
 		
 		/*    Stats and Counting    */
 		float passRate(std::vector<std::string> &grades);
 		float withdrawRate(std::vector<std::string> &grades);
-		
-		/*    Data Analysis    */
-		void passRate_per_instructor(FILE *fp, std::set<Instructor> instructors);
-		void passRate_per_courseNum(FILE *fp, std::set<Course> courses);
-		void withdrawRate_per_instructor(FILE *fp, std::set<Instructor> instructors);
-		void withdrawRate_per_courseNum(FILE *fp, std::set<Course> courses);
-		void termPassRate_per_courseNum(FILE *fp, std::set<Course> courses, std::string term);
 		
 		/*    Reading    */
 		void read(char *filename);

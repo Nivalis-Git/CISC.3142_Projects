@@ -21,7 +21,6 @@ namespace college_structs {
 struct Instructor
 {
 	std::string id;
-	
 	Instructor(std::string &id);
 	
 	bool operator ==(const Instructor &other) const;
@@ -32,7 +31,6 @@ struct Instructor
 struct Student
 {
 	std::string id;
-	
 	Student(std::string &id);
 	
 	bool operator ==(const Student &other) const;
@@ -43,37 +41,23 @@ struct Student
 struct Course
 {
 	int crs_num;
-	std::string term_id;
+	std::string term;
 	std::string section;
 	std::string instructor_id;
-	
-	Course(int crs_num, std::string &term_id, std::string &section, std::string &instructor_id);
+	Course(int crs_num, std::string &term, std::string &section, std::string &instructor_id);
 	
 	bool operator ==(const Course &other) const;
 	bool operator <(const Course &other) const;
 };
 
 
-struct Term
-{
-	std::string name;
-	std::set<std::string> id_set;  // Set of corresponding term IDs
-	
-	Term(std::string name);
-	
-	bool insert_id(std::string term_id);
-	
-	std::set<std::string> get_id_set();
-};
-
-
 struct EnrollHistory
 {
+		EnrollHistory();
+		
 		std::set< std::pair<struct Course, struct Student> > enrollment;  // Ensures no duplicate enrollment records exist
 		std::map< struct Course, std::vector<std::pair<struct Student, std::string>> > course_roster;
 		std::map< struct Student, std::vector<std::pair<struct Course, std::string>> > student_history;		
-		
-		EnrollHistory();
 		
 		std::vector<std::pair<Student, std::string>> get_courseRoster(Course crs);
 		std::vector<std::pair<Course, std::string>> get_studentHistory(Student stud);
